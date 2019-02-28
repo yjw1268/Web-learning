@@ -6,7 +6,9 @@
     <link rel="stylesheet" type="text/css" href="css_pc_log_in.css">
 </head>
 <body>
+
 <script src="login_check.js"></script>
+
         <div class="wrapper">
 			    <h1>
                     登录
@@ -14,16 +16,16 @@
                 <h3>
                     Login SQL system for study.imoe.club
                 </h3>
-				<form action="main.html" onSubmit="return checkForm()">
+				<form action="./php/login.php" method="POST" onSubmit="return checkForm()">
                 <div class="form-itemGroup userName">
 					<i class="material-icons userName">account_circle</i>
-                    <input class="input userName" id="userName" placeholder="用户名/电子邮箱" type="text" onblur="checkUserName()">
+                    <input class="input userName" id="userName" name="userName" placeholder="用户名/电子邮箱" type="text" onblur="checkUserName()">
                     <span class="underline userName"></span>
 					<p class="info userName" id="errName"> </p>
                 </div>
                 <div class="form-itemGroup userPassword">
 					<i class="material-icons userPassword">vpn_key</i>
-                    <input class="input userPassword" id="userPassword" placeholder="请输入密码" type="password" onfocus="checkUserName()" onblur="checkPassword()">
+                    <input class="input userPassword" id="userPassword" name="userPassword" placeholder="请输入密码" type="password" onfocus="checkUserName()" onblur="checkPassword()">
                     <span class="underline userPassword"></span>
 					<p class="info userPassword" id="errPassword"> </p>
                 </div>
@@ -34,8 +36,8 @@
 				<block class="block">记住我</block>
 				</div>
 				<div style="width:580px;float: left;">
-				<button type="button" class="cancel button" onclick="window.open('sign_in.html')">注册</button>
-				<button type="submit" class="submit button" id="submit" onclick="submitForm()">登录</button>
+				<button type="button" class="cancel button" onclick="window.location.href='sign_in.html'">注册</button>
+				<button type="submit" class="submit button" id="submit">登录</button>
 				</div>
 				</div>
         </div>

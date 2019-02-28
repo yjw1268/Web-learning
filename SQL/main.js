@@ -6,7 +6,7 @@ window.onload=function(){
 	var h1=document.getElementById('visit');
 	var h3=document.getElementById('userInfo');
 	if(dataJsonL==null&&dataJsonS==null){
-		h1.innerHTML="非法访问，请先登录！";
+		h1.innerHTML="正在建设中！";
 		h1.style.color="DarkRed";
 		h3.style.color="Coral";
 		h3.innerHTML="将在3秒后跳转至登录页面";

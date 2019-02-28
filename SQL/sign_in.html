@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css_pc_log_in.css">
 </head>
 <body>
+<script src="jquery.min.js"></script>
 <script src="formcheck.js"></script>
             <div class="wrapper">
 			    <h1>
@@ -14,24 +15,24 @@
                 <h3>
                     Register for study.imoe.club
                 </h3>
-				<form action="main.html" onSubmit="return checkForm()">
+				<form action="./php/register.php" method="POST" onSubmit="return checkForm()">
                 <div class="form-itemGroup userName">
 					<i class="material-icons userName">account_circle</i>
-                    <input class="input userName" id="userName" placeholder="用户名" type="text" onblur="checkUserName()">
+                    <input class="input userName" id="userName" name="userName" placeholder="用户名" type="text" onblur="checkUserName()">
                     <span class="underline userName"></span>
 					<p class="info userName" id="errName">用户名至少为3位, 至多为20位, 且不能包含除下划线以外的特殊字符</p>
                 </div>
 				<div class="form-itemGroup email">
 					<i class="material-icons">email</i>
-                    <input class="input" id="email" placeholder="E-mail" type="email" onblur="checkEmail()">
+                    <input class="input" id="email" name="email" placeholder="E-mail" type="email" onblur="checkEmail()">
                     <span class="underline email"></span>
 					<p class="info email" id="errEmail">请输入有效的电子邮箱</p>
                 </div>
                 <div class="form-itemGroup userPassword">
 					<i class="material-icons userPassword">vpn_key</i>
-                    <input class="input userPassword" id="userPassword" placeholder="请输入密码" type="password" onblur="checkPassword()">
+                    <input class="input userPassword" id="userPassword" name="userPassword" placeholder="请输入密码" type="password" onblur="checkPassword()">
                     <span class="underline userPassword"></span>
-					<p class="info userPassword" id="errPassword">密码应为8-30位数字、字母、特殊符号组合</p>
+					<p class="info userPassword" id="errPassword">密码应为8-30位数字、字母组合</p>
                 </div>
                 <div class="form-itemGroup userConfirmPassword">
 					<i class="material-icons userConfirmPassword">done_all</i>
@@ -41,7 +42,7 @@
                 </div>
 				<div>
 				<button type="button" class="cancel button" onclick="location.href='index.html';">取消</button>
-				<button type="submit" class="submit button" id="submit" onclick="submitForm()">注册</button>
+				<button type="submit" class="submit button" id="submit">注册</button>
 				</div>
         </div>
 </body>
