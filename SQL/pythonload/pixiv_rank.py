@@ -5,6 +5,7 @@ from requests.adapters import HTTPAdapter
 from bs4 import BeautifulSoup
 import time
 import sys, re
+import os
 
 se = requests.Session()  # 模拟登陆
 requests.adapters.DEFAULT_RETRIES = 15
@@ -60,53 +61,61 @@ class Pixiv(object):
         se.post(self.login_url, data=data, headers=self.headers)
 
     def choosemode(self):
-        text = input("请选择看图模式:")
+        #print("请选择看图模式:")
+        text = str(sys.argv[1])
         mode = self.modebase[text]
+        print(mode)
         return mode
 
     def getnum(self, mode):
         # print(mode)
         if mode == 'daily_r18' or mode == 'weekly_r18':
-            getnumber = input("你要几份色图？默认3份（输入1~5）")
+            print("?")
+            getnumber = str(sys.argv[2])
             if (getnumber.isdigit()):
                 if int(getnumber) > 5 or int(getnumber) < 1:
-                    print("输入数字不合法,程序自动结束")
+                    print("-1")
                     sys.exit()
             elif (getnumber == ''):
                 getnumber = 3
             else:
-                print("输入格式不合法,程序自动结束")
+                print("-1")
                 sys.exit()
         elif mode == 'r18g':
-            print("你很变态居然看这个 就只给你1份")
+            print("!")
             getnumber = 1
         else:
-            getnumber = input("你要看几张图？默认5份（输入1~8）")
+            #print("你要看几张图？默认5份（输入1~8）")
+            getnumber = str(sys.argv[2])
             if (getnumber.isdigit()):
                 if int(getnumber) > 5 or int(getnumber) < 1:
-                    print("输入数字不合法,程序自动结束")
+                    print("-1")
                     sys.exit()
             elif (getnumber == ''):
                 getnumber = 5
             else:
-                print("输入格式不合法,程序自动结束")
+                print("-1")
                 sys.exit()
         return int(getnumber)
 
-    def secontect(self, target_url):
-        s = se.get(self.target_url_1 + target_url)  # https://www.pixiv.net/setting_user.php
-        with open(self.load_path + 'Re.html', 'w', encoding='utf-8') as f:
-            f.write(s.text)
+    # def secontect(self, target_url):
+    #     s = se.get(self.target_url_1 + str(target_url))  # https://www.pixiv.net/setting_user.php
+    #     print("s")
+    #     print(s.text)
+    #     with open(self.load_path + 'Re.html', 'w', encoding='utf-8') as f:
+    #         f.write(s.text)
+    #         print("sc")
 
     def validateTitle(self, title):
         rstr = r"[\/\\\:\*\?\"\<\>\|]"  # '/ \ : * ? " < > |'
         new_title = re.sub(rstr, "_", title)  # 替换为下划线
         return new_title
 
-    def beautifulsoup(self, get_number):
-        soup = BeautifulSoup(open(self.load_path + 'Re.html', 'r', encoding='utf-8'), features="html.parser")  # 初始化
-        with open(self.load_path + 'Re_soup.html', 'w', encoding='utf-8') as f:
-            f.write(soup.prettify())  # 保存soup以便check
+    def beautifulsoup(self, get_number,target_url):
+        s = se.get(self.target_url_1 + str(target_url))
+        soup = BeautifulSoup(s.text, features="html.parser")  # 初始化
+        # with open(self.load_path + 'Re_soup.html', 'w', encoding='utf-8') as f:
+        #     f.write(soup.prettify())  # 保存soup以便check
         title = soup.find_all("a", class_="title", limit=get_number)  # 寻找每周前get_number
         src_headers = self.headers
         for i in title:
@@ -114,31 +123,25 @@ class Pixiv(object):
             # print(temp_url)  # 详细页的url
             temp_clear = se.get(temp_url, headers=src_headers)
             clear_soup = BeautifulSoup(temp_clear.text, features="html.parser")
-            name = self.validateTitle(i.string)
-            with open(self.load_path + name + '.html', 'w', encoding='utf-8') as f:
-                f.write(clear_soup.prettify())
-                op = clear_soup.prettify().find('"original":"')
-                ed = clear_soup.prettify().find('},"tags')
-                # print(op)
-                # print(ed)
-                original_url = clear_soup.prettify()[op + 12:ed - 1]
-                # print(original_url)
-                adapt_url = original_url.replace('\/', '/')
-                print(adapt_url)
-                img = se.get(adapt_url, headers=src_headers)
-                with open(self.load_path + name + '.jpg', 'wb') as f:  # 图片要用b,对text要合法化处理
-                    f.write(img.content)  # 保存图片
-                print("Finish")
-            time.sleep(4)
-
+            name = self.validateTitle(i.string).decode("utf-8")
+            op = clear_soup.prettify().find('"original":"')
+            ed = clear_soup.prettify().find('},"tags')
+            original_url = clear_soup.prettify()[op + 12:ed - 1]
+            adapt_url = original_url.replace('\/', '/')
+            print(adapt_url)
+            img = se.get(adapt_url, headers=src_headers)
+            with open(self.load_path + name + '.jpg', 'wb') as f:  # 图片要用b,对text要合法化处理
+                f.write(img.content)  # 保存图片
+            print("Finish")
+            time.sleep(1)
         # 拉取缩略图
-        # pic_dl = soup.find_all("img", class_="_thumbnail ui-scroll-view", limit=self.get_number)
+        # pic_dl = soup.find_all("img", class_="_thumbnail ui-scroll-view", limit=get_number)
         # i = 0  # 命名需要
         # for j in pic_dl:
         #     pic_dl_url = j["data-src"]
         #     print(pic_dl_url)  # 缩略图的url
-        #     img = requests.get(pic_dl_url, headers=src_headers)  # 下载图片
-        #     with open(self.load_path + title[i].text + '.jpg', 'wb') as f:  # 图片要用b,对text要合法化处理
+        #     img = requests.get(pic_dl_url, headers=self.headers)  # 下载图片
+        #     with open(self.load_path + '1' + '.jpg', 'wb') as f:  # 图片要用b,对text要合法化处理
         #         f.write(img.content)  # 保存图片
         #     i += 1
         # print("Read.")
@@ -150,11 +153,10 @@ if __name__ == '__main__':
     pixiv.login()
     # print("Loggin")
     print("Welcome!")
-    print(" '1':'每日Top'", '\n', "'2':'每周Top'", '\n', "'3':'每月Top',", '\n', "'R1':'每日色图Top'", '\n', "'R2':'每周色图Top'",
-          '\n', "'RG':'r18g',")
+    # print(" '1':'每日Top'", "'2':'每周Top'",  "'3':'每月Top',", "'R1':'每日色图Top'", "'R2':'每周色图Top'","'RG':'r18g',")
     mode = pixiv.choosemode()
     print("Linking to the sever...")
-    pixiv.secontect(mode)
+    # pixiv.secontect(mode)
     print("Getting page contents...")
-    pixiv.beautifulsoup(pixiv.getnum(mode))
+    pixiv.beautifulsoup(pixiv.getnum(mode),mode)
     print("System Exit")
