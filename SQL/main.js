@@ -9,8 +9,6 @@ window.onload=function(){
 		h1.innerHTML="正在建设中！";
 		h1.style.color="DarkRed";
 		h3.style.color="Coral";
-		h3.innerHTML="将在3秒后跳转至登录页面";
-		setTimeout("location.href='index.html'",3000)
 		}else{
 			if(dataJsonL!=null){
 			dataJson=eval('('+dataJsonL+')');
