@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>图片接口执行测试</title>
+    <link rel="stylesheet" type="text/css" href="../SQL/css_pc_log_in.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>
+            API
+        </h1>
+        <h3> 
+            输入搜索词
+        </h3>
+    <form action="linkpsearch.php" method="post" onsubmit="return check();">
+        <div class="form-itemGroup userName">
+            <i class="material-icons userName">account_circle</i>
+            <input class="input userName" type="text" name="searchword" id="searchword" placeholder="输入搜索词(目前仅支持英文输入！罗马音亦可)">
+        </div>
+        <div class="form-itemGroup userPassword">
+            <i class="material-icons userPassword">vpn_key</i>
+            <input class="input userPassword" type="text" name="marks" id="marks" placeholder="设置点赞数量(0~5000,数量越高越好看越难搜到)">
+        </div>
+        <div class="form-itemGroup userPassword">
+            <i class="material-icons userPassword">vpn_key</i>
+            <input class="input userPassword" type="text" name="getnumber" id="getnumber" placeholder="获取图片数量(1~5)">
+        </div>
+        <div class="form-itemGroup userPassword">
+                <i class="material-icons userPassword">vpn_key</i>
+                <input class="input userPassword" type="text" name="spage" id="spage" placeholder="高级功能，请勿输入">
+        </div>
+        <button type="button" class="cancel button" onclick="window.location.reload();">取消</button>
+        <button type="submit" class="submit button" id="submit">搜索</button>
+    </form>
+    </div>  
+</body>
