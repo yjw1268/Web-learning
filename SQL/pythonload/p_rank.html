@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>图片接口执行测试</title>
+    <link rel="stylesheet" type="text/css" href="../SQL/css_pc_log_in.css">
+</head>
+<body>
+    <script src="check.js"></script>
+        <div class="wrapper">
+            <h1>
+                API
+            </h1>
+            <h3> 
+                输入1:每日Top, 2:每周Top, 3:每月Top, R1:每日色图Top, R2:每周色图Top, RG:r18g
+            </h3>
+            <form action="linkprank.php" method="post" onsubmit="return check();">
+                <div class="form-itemGroup userName">
+                    <i class="material-icons userName">account_circle</i>
+                    <input class="input userName" type="text" name="mode" id="mode" placeholder="输入看图模式">
+                </div>
+                <div class="form-itemGroup userPassword">
+                    <i class="material-icons userPassword">vpn_key</i>
+                    <input class="input userPassword" type="text" name="number" id="number" placeholder="图片数量">
+                </div>
+                <button type="button" class="cancel button" onclick="window.location.reload();">取消</button>
+                <button type="submit" class="submit button" id="submit">开冲</button>
+            </div>
+            </form>
+        </div>
+</body>
+</html>
