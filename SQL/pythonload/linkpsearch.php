@@ -7,9 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $getnumber=$_POST["getnumber"];
     #$spage=$_POST["spage"];
     $spage='1';
-    $output=shell_exec("python3 pixiv_search.py $searchword $marks $getnumber $spage");
+    $searchcode=rawurlencode($searchword);
+    $output=shell_exec("python3 pixiv_search.py $searchcode $marks $getnumber $spage $searchword");
     echo $output;
-    # echo $checkmode;
     # 初始化数据
     $servername = "localhost";
     $username = "root";
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     else{
         echo("Connected successfully."."<br>");
     }
-    $sql = "SELECT searchword,local_url,pixiv_id FROM pixiv_search WHERE searchword='$searchword'";
+    $sql = "SELECT searchword,local_url,pixiv_id,marks FROM pixiv_search WHERE searchword='$searchword' AND marks>'$marks'";
     $result = mysqli_query($link, $sql);
     # 读取并输出数据
     if (mysqli_num_rows($result) > 0) {

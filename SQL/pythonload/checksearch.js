@@ -35,3 +35,9 @@ function checkmarks(marks){
         return true;
     }
 }
+
+function changecode(){
+    document.getElementById('searchword').value = encodeURI(document.getElementById('searchword').value);
+    //alert(encodeURI(searchwords));
+    alert(document.getElementById('searchword').value)
+}
