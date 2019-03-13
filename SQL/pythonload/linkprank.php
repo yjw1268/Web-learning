@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<title>Acess denied!</title>";
         echo "<script>alert('输入有误！');</script>";
         header("Refresh:1;url=p_rank.html");
-        die("正在返回上一级页面...");
+        die("<h1>正在返回上一级页面...</h1>");
     }
     $number=$_POST["number"];
     $output=shell_exec("python3 pixiv_rank.py $mode $number");
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     else{
         echo("Connected successfully."."<br>");
     }
-    $sql = "SELECT local_url,mode,pixiv_id FROM pixiv_rank WHERE mode='$checkmode'";
+    $sql = "SELECT local_url,mode,pixiv_id,temp_rank FROM pixiv_rank WHERE mode='$checkmode' AND temp_rank<'$number'";
     $result = mysqli_query($link, $sql);
     # 读取并输出数据
     if (mysqli_num_rows($result) > 0) {

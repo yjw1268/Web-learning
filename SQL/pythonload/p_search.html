@@ -1,22 +1,23 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>图片接口执行测试</title>
+    <title>图片搜索程序</title>
     <link rel="stylesheet" type="text/css" href="../SQL/css_pc_log_in.css">
+    <style type="text/css">.footer{position:absolute;bottom:0;width:100%;height:70px;}</style>
 </head>
 <body>
     <script src="checksearch.js"></script>
     <div class="wrapper">
         <h1>
-            API
+            图片搜索程序
         </h1>
         <h3> 
-            输入搜索词
+            查找你喜欢的动漫角色的图片！
         </h3>
     <form action="linkpsearch.php" method="post" onsubmit="return check();">
         <div class="form-itemGroup userName">
             <i class="material-icons userName">account_circle</i>
-            <input class="input userName" type="text" name="searchword" id="searchword" placeholder="输入搜索词(目前仅支持英文输入！罗马音亦可)">
+            <input class="input userName" type="text" name="searchword" id="searchword" placeholder="输入搜索词(支持CN，EN，JP语言)">
         </div>
         <div class="form-itemGroup userPassword">
             <i class="material-icons userPassword">vpn_key</i>
@@ -28,10 +29,15 @@
         </div>
         <div class="form-itemGroup userPassword">
                 <i class="material-icons userPassword">vpn_key</i>
-                <input class="input userPassword" type="text" name="spage" id="spage" placeholder="高级功能，请勿输入">
+                <input class="input userPassword" type="text" name="spage" id="spage" placeholder="高级功能，请勿输入QAQ">
         </div>
         <button type="button" class="cancel button" onclick="window.location.reload();">取消</button>
         <button type="submit" class="submit button" id="submit">搜索</button><!-- onclick="changecode()"-->
     </form>
     </div>  
+    <div class="footer">
+        <h5> 
+            <center>Powered By IMOE.CLUB</center>
+        </h5>
+    </div>
 </body>

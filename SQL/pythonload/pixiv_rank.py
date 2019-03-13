@@ -110,7 +110,9 @@ class Pixiv(object):
             cursor.execute(sql)
             results = cursor.fetchall()
             if results:
-                print("1")
+                # print("1")
+                sql = "UPDATE pixiv_rank SET rank_date=CURRENT_TIMESTAMP() WHERE pixiv_id = %s" % (pic_id)
+                cursor.execute(sql)
                 i+=1
                 continue
             img = requests.get(pic_dl_url, headers=self.headers)  # 下载图片

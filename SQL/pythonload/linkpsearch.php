@@ -1,6 +1,7 @@
 <?php
 ini_set("display_errors", "On");
 error_reporting(E_ALL || E_STRICT);
+echo("<title>查找结果-Powered by IMOE.CLUB</title>");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $searchword=$_POST["searchword"];
     $marks=$_POST["marks"];
@@ -9,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $spage='1';
     $searchcode=rawurlencode($searchword);
     $output=shell_exec("python3 pixiv_search.py $searchcode $marks $getnumber $spage $searchword");
-    echo $output;
+    # echo $output;  #调试
     # 初始化数据
     $servername = "localhost";
     $username = "root";
@@ -21,20 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . mysqli_connect_error())."<br>";
     }
     else{
-        echo("Connected successfully."."<br>");
+        echo("<center><h1>RANK</h1>"."<h3>点击图片可以查看大图哦</h3><br>");
     }
-    $sql = "SELECT searchword,local_url,pixiv_id,marks FROM pixiv_search WHERE searchword='$searchword' AND marks>'$marks'";
+    $sql = "SELECT searchword,local_url,pixiv_id,marks,title FROM pixiv_search WHERE searchword='$searchword' AND marks>'$marks'";
     $result = mysqli_query($link, $sql);
     # 读取并输出数据
     if (mysqli_num_rows($result) > 0) {
         // 输出数据
         while($row = mysqli_fetch_assoc($result)) {
-            echo "<a href='http://study.imoe.club/Try/get_pic.php?id=".$row["pixiv_id"]."'>"."<img src=".$row["local_url"]." /></a>". "<br>". "<br>";
+            echo "<a href='http://study.imoe.club/Try/get_pic.php?id=".$row["pixiv_id"]."'>"."<img src=".$row["local_url"]." /></a>". "<br>".$row["title"]. "<br><br>";
         }
     } else {
-        echo "获取失败！"."<br>";
+        echo "获取失败！请联系维护人员！"."<br>";
     }
     // mysqli_query("DELETE FROM pixiv_rank");
+    echo("<h5>Powered by IMOE.CLUB</h5></center>");  
     mysqli_close($link);
 }
 else{
