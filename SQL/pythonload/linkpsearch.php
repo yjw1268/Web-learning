@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<a href='http://study.imoe.club/Try/get_pic.php?id=".$row["pixiv_id"]."'>"."<img src=".$row["local_url"]." /></a>". "<br>".$row["title"]. "<br><br>";
         }
     } else {
-        echo "获取失败！请联系维护人员！"."<br>";
+        echo "搜索到 0 个结果，请适当修改搜索词或减少点赞数！"."<br>";
     }
     // mysqli_query("DELETE FROM pixiv_rank");
     echo("<h5>Powered by IMOE.CLUB</h5></center>");  
