@@ -1,6 +1,5 @@
 function check(){
-    var mode=document.getElementById('mode');
-    var number = document.getElementById('number').value;
+    var number = document.getElementById('pid').value;
     if(isNaN(number)){
         alert("输入错误");
         return false;
