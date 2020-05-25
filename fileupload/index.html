@@ -17,6 +17,18 @@
             }
         if(isIE())
             alert("暂时不支持IE系列哦！请使用其他内核浏览器QAQ");
+        var a = navigator.userAgent;
+            var agents = new Array("iPhone", "iPad", "Android", "SymbianOS", "Windows Phone", "iPod");
+            var flag = true;
+            for (var i = 0; i < agents.length; i++) {
+                if (a.indexOf(agents[i]) > 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (!flag) {
+                alert("请使用电脑端上传文件QAQ");
+            }
     </script>
     <link rel="stylesheet" type="text/css" href="../assets/css/vno.css">
     <script src="upload.js"></script>

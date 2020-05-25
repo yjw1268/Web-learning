@@ -54,12 +54,15 @@ $(document).ready(function(){
                 }
                 return myXhr;
             },
- 	    success: function(data){//上传成功回调
- 		console.log(data);//获取文件链接
- 		//document.cookie = "url="+data;//此行可忽略
- 		$(".submit").text('上传成功');
-        $(".submit").attr("disabled", true); 
-        $(".upagain").css("display", "block");
+        success: function (data) {//上传成功回调
+            processNum.text("100%");
+            processBar.css("width", 100);
+            console.log(data);//获取文件链接
+            //document.cookie = "url="+data;//此行可忽略
+            // alert("上传文件 " + data + " 成功");
+            $(".submit").text('上传成功');
+            $(".submit").attr("disabled", true); 
+            $(".upagain").css("display", "block");
              }
 	})
     }
